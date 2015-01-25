@@ -1,0 +1,61 @@
+---
+title       : Relocating in the Capital of Iceland 
+subtitle    : Predicting relocation cost
+author      : gnusi100
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+--- .class #id 
+
+## What does the app do
+
+This data product helps you out in the beginning of the process of finding a new appartment
+
+1. It gives you an price estimate on your appartment
+
+2. It estimates the price of your desired appartment, given the size and location
+
+3. It gives you an impression of the prices in different areas of the capital of Iceland
+
+---
+## The data
+I got the data from this webpage [http://www.skra.is/markadurinn/talnaefni/](http://www.skra.is/markadurinn/talnaefni/)
+
+The data is a summary from all the real estate contracts for appartments in 34 different areas in Reykjavik Iceland in 2013
+
+The values that my prediction model is built on is the average square meter price in each area
+
+```{r, echo=FALSE}
+data <-read.csv("/Users/Maggi/Documents/coursera/dataproducts/CourseProject/data2.csv",header = TRUE,sep = ";")
+data <- data[-35,]
+data$price <- as.numeric(data$price)
+data2 <- cbind(rep("appartment",nrow(data)),data)
+colnames(data2) <- c("type","neighbourhood","year","count","size","price")
+data2$price <- round(data2$price/135, digits = 0)
+```
+
+```{r}
+str(data2)
+```
+
+---
+  
+## Limitations
+
+1. It expects that the square meter price is the same for all appartment sizes in a neighbourhood
+
+2. It´s probably only useful if you are interested in an average quality appartment for each neighbourhood
+
+---
+## Next step
+
+Buy the the real estate contracts from Registers Iceland and build á real regression model with more parameters to estimate appartment prices.
+
+Add a map to the app for better understanding of the neighbourhoods
+
+
+
